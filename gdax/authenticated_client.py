@@ -194,6 +194,7 @@ class AuthenticatedClient(PublicClient):
         return r.json()
 
     def get_position(self):
+
         r = requests.get(self.url + "/position", auth=self.auth, timeout=30)
         # r.raise_for_status()
         return r.json()
