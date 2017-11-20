@@ -44,7 +44,7 @@ class WebsocketClient(object):
                 except WebSocketConnectionClosedException as e:
                     continue
                     pass
-                self._disconnect()
+            self._disconnect()
 
         self.stop = False
         self.on_open()
@@ -98,12 +98,9 @@ class WebsocketClient(object):
     def _disconnect(self):
         if self.type == "heartbeat":
             self.ws.send(json.dumps({"type": "heartbeat", "on": False}))
-        try:
-            if self.ws:
-                self.ws.close()
-        except WebSocketConnectionClosedException as e:
-            pass
 
+        if self.ws:
+            self.ws.close()
         self.on_close()
 
     def close(self):
