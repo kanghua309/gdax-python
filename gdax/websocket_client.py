@@ -37,9 +37,14 @@ class WebsocketClient(object):
 
     def start(self):
         def _go():
-            self._connect()
-            self._listen()
-            self._disconnect()
+            while not self.stop:
+                try:
+                    self._connect()
+                    self._listen()
+                except WebSocketConnectionClosedException as e:
+                    continue
+                    pass
+                self._disconnect()
 
         self.stop = False
         self.on_open()
@@ -86,6 +91,7 @@ class WebsocketClient(object):
                 self.on_error(e)
             except Exception as e:
                 self.on_error(e)
+                break
             else:
                 self.on_message(msg)
 
