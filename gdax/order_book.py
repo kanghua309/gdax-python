@@ -281,7 +281,7 @@ if __name__ == '__main__':
                 self._ask = ask
                 self._bid_depth = bid_depth
                 self._ask_depth = ask_depth
-                print('{} {} bid: {:.3f} @ {:.2f}\task: {:.3f} @ {:.2f}'.format(
+                print('============================== {} {} bid: {:.3f} @ {:.2f}\task: {:.3f} @ {:.2f}'.format(
                     dt.datetime.now(), self.product_id, bid_depth, bid, ask_depth, ask))
 
     order_book = OrderBookConsole()
