@@ -13,8 +13,9 @@ from gdax.websocket_client import WebsocketClient
 
 
 class OrderBook(WebsocketClient):
-    def __init__(self, url = '"wss://ws-feed.gdax.com"', product_id='BTC-USD', log_to=None):
+    def __init__(self, url = "wss://ws-feed.gdax.com", product_id='BTC-USD', log_to=None):
         super(OrderBook, self).__init__(url = url,products=product_id)
+        #print("------------------------------orderbook url:",url)
         self._asks = RBTree()
         self._bids = RBTree()
         self._client = PublicClient()
@@ -262,6 +263,8 @@ if __name__ == '__main__':
             self._ask_depth = None
 
         def on_message(self, message):
+            print("bookorder message:", message)
+
             super(OrderBookConsole, self).on_message(message)
 
             # Calculate newest bid-ask spread
@@ -281,8 +284,9 @@ if __name__ == '__main__':
                 self._ask = ask
                 self._bid_depth = bid_depth
                 self._ask_depth = ask_depth
-                print('============================== {} {} bid: {:.3f} @ {:.2f}\task: {:.3f} @ {:.2f}'.format(
-                    dt.datetime.now(), self.product_id, bid_depth, bid, ask_depth, ask))
+            print('============================== {} {} bid: {:.3f} @ {:.2f}\task: {:.3f} @ {:.2f}'.format(
+                dt.datetime.now(), self.product_id, bid_depth, bid, ask_depth, ask))
+            print(self.get_bids(bid)[-1]['size'] if bid_depth > 0 else 0)
 
     order_book = OrderBookConsole()
     order_book.start()
