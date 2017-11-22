@@ -32,3 +32,15 @@ def get_auth_headers(timestamp, message, api_key, secret_key, passphrase):
         'CB-ACCESS-KEY': api_key,
         'CB-ACCESS-PASSPHRASE': passphrase
     }
+
+def get_auth_dict(timestamp, message, api_key, secret_key, passphrase):
+    message = message.encode('ascii')
+    hmac_key = base64.b64decode(secret_key)
+    signature = hmac.new(hmac_key, message, hashlib.sha256)
+    signature_b64 = base64.b64encode(signature.digest()).decode('utf-8')
+    return {
+        'signature': signature_b64,
+        'timestamp': timestamp,
+        'key': api_key,
+        'passphrase': passphrase
+    }

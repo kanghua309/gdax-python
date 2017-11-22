@@ -14,7 +14,7 @@ import time
 from threading import Thread
 from websocket import create_connection, WebSocketConnectionClosedException
 from pymongo import MongoClient
-from gdax.gdax_auth import get_auth_headers
+from gdax.gdax_auth import get_auth_headers,get_auth_dict
 
 
 class WebsocketClient(object):
@@ -69,7 +69,7 @@ class WebsocketClient(object):
         if self.auth:
             timestamp = str(time.time())
             message = timestamp + 'GET' + '/users/self'
-            sub_params.update(get_auth_headers(timestamp, message, self.api_key,  self.api_secret, self.api_passphrase))
+            sub_params.update(get_auth_dict(timestamp, message, self.api_key,  self.api_secret, self.api_passphrase))
 
         self.ws = create_connection(self.url)
         self.ws.send(json.dumps(sub_params))
