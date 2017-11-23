@@ -46,7 +46,6 @@ class WebsocketClient(object):
                     continue
                     pass
             self._disconnect()
-
         self.stop = False
         self.on_open()
         self.thread = Thread(target=_go)
