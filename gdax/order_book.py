@@ -14,8 +14,8 @@ from gdax.websocket_client import WebsocketClient
 
 class OrderBook(WebsocketClient):
     def __init__(self, url = "wss://ws-feed.gdax.com", product_id='BTC-USD',auth=False, api_key="", api_secret="", api_passphrase="", log_to=None):
-        super(OrderBook, self).__init__(url = url,products=product_id)
-        #print("------------------------------orderbook url:",url)
+        super(OrderBook, self).__init__(url = url,products=product_id,auth=auth,api_key=api_key,api_secret=api_secret,api_passphrase=api_passphrase)
+        print("------------------------------orderbook url:",url)
         self._asks = RBTree()
         self._bids = RBTree()
         self._client = PublicClient()
