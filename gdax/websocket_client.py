@@ -43,7 +43,10 @@ class WebsocketClient(object):
                     self._listen()
                 except Exception as e:
                     self._disconnect(is_close=False)
-                    print("Websocket Error Exception %s" % e)
+                    print("Websocket Error Exception %s" % e.message)
+                    import traceback
+                    print('traceback.print_exc():');traceback.print_exc()
+                    print('traceback.format_exc():\n%s' % traceback.format_exc())
                     continue
 
             self._disconnect()
