@@ -41,8 +41,9 @@ class WebsocketClient(object):
                 try:
                     self._connect()
                     self._listen()
-                except:
+                except Exception as e:
                     self._disconnect(is_close=False)
+                    print("Websocket Error Exception e:",e)
                     continue
                     pass
             self._disconnect()
