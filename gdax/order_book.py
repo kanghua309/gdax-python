@@ -253,8 +253,8 @@ if __name__ == '__main__':
     class OrderBookConsole(OrderBook):
         ''' Logs real-time changes to the bid-ask spread to the console '''
 
-        def __init__(self, product_id=None):
-            super(OrderBookConsole, self).__init__(product_id=product_id)
+        def __init__(self, url=None,product_id=None):
+            super(OrderBookConsole, self).__init__(url = url,product_id=product_id)
 
             # latest values of bid-ask spread
             self._bid = None
@@ -288,7 +288,7 @@ if __name__ == '__main__':
                 dt.datetime.now(), self.product_id, bid_depth, bid, ask_depth, ask))
             print(self.get_bids(bid)[-1]['size'] if bid_depth > 0 else 0)
 
-    order_book = OrderBookConsole()
+    order_book = OrderBookConsole(url='wss://ws-feed-public.sandbox.gdax.com')
     order_book.start()
     try:
         while True:
